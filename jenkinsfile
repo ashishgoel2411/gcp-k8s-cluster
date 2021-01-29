@@ -1,28 +1,28 @@
 pipeline {
-    agent {
-      node {
-        label "master"
-      } 
-    }
-
-    stages {
-//      stage('fetch_latest_code') {
-//       steps {
-//          git credentialsId: 'stoked-genius-302113', url: 'https://github.com/ashishgoel2411/gcp-k8s-cluster'
-//       }
-//      }
-
-      stage('TF Init&Plan') {
-        steps {
-          sh 'terraform init'
-          sh 'terraform plan'
-        }      
-      }
-
-      stage('TF Apply') {
-        steps {
-          sh 'terraform apply -input=false -auto-approve'
-        }
-      }
-    } 
+ agent any
+  environment {
+    SVC_ACCOUNT_KEY = credentials('terraform-auth')
   }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+        sh 'mkdir -p creds'
+        sh 'echo $SVC_ACCOUNT_KEY | base64 -d > ./creds/demoaccount.json'
+      }
+    }	
+    
+	stage('TF Init&Plan') {
+      steps {
+        sh 'terraform init'
+        sh 'terraform plan'
+      }      
+    }
+    stage('TF Apply') {
+      steps {
+        sh 'terraform apply -input=false -auto-approve'
+      }
+    }
+  }
+}
