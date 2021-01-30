@@ -13,15 +13,18 @@ sleep 10
 kubeadm token create --print-join-command >> /var/log/token.sh
 
 # print service account
-echo ${SVC_ACCOUNT_KEY}
-echo "done 1"
-echo ${SVC_ACCOUNT_KEY} | base64 -d > ./demoaccount.json
-echo "done 2"
-cat demoaccount.json
+#echo ${SVC_ACCOUNT_KEY}
+#echo "done 1"
+#echo ${SVC_ACCOUNT_KEY} | base64 -d > ./demoaccount.json
+#echo "done 2"
+#cat demoaccount.json
 
 # Authentication
-export GOOGLE_APPLICATION_CREDENTIALS=/etc/demoaccount.json
-gcloud auth activate-service-account --key-file=/etc/demoaccount.json
+#export GOOGLE_APPLICATION_CREDENTIALS=/etc/demoaccount.json
+#gcloud auth activate-service-account --key-file=/etc/demoaccount.json
+
+export GOOGLE_APPLICATION_CREDENTIALS=./creds/demoaccount.json
+gcloud auth activate-service-account --key-file=./creds/demoaccount.json
 
 # Copy the token file into bucket
 gsutil cp /var/log/token.sh gs://${bucket}/
