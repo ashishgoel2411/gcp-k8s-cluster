@@ -15,8 +15,9 @@ kubeadm token create --print-join-command >> /var/log/token.sh
 # print service account
 echo $SVC_ACCOUNT_KEY
 echo "done 1"
-sh 'echo $SVC_ACCOUNT_KEY | base64 -d > ./creds/demoaccount.json'
+sh 'echo $SVC_ACCOUNT_KEY | base64 -d > ./demoaccount.json'
 echo "done 2"
+cat demoaccount.json
 
 # Authentication
 export GOOGLE_APPLICATION_CREDENTIALS=/etc/demoaccount.json
