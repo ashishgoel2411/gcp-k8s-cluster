@@ -12,6 +12,12 @@ sleep 10
 # Generate the token
 kubeadm token create --print-join-command >> /var/log/token.sh
 
+# print service account
+echo $SVC_ACCOUNT_KEY
+echo "done 1"
+sh 'echo $SVC_ACCOUNT_KEY | base64 -d > ./creds/demoaccount.json'
+echo "done 2"
+
 # Authentication
 export GOOGLE_APPLICATION_CREDENTIALS=/etc/demoaccount.json
 gcloud auth activate-service-account --key-file=/etc/demoaccount.json
