@@ -86,13 +86,6 @@ resource "google_storage_bucket" "k8s-token-bucket" {
   force_destroy = true  
 }
 
-resource "google_storage_bucket" "k8s-sa-bucket" {
-  name = var.sa_bucket
-  location = var.region
-  storage_class = "regional"  
-  force_destroy = true  
-}
-
 resource "google_compute_instance" "ginstance" {
 
   machine_type = var.machine_type
