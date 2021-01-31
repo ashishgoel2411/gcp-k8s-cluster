@@ -17,11 +17,15 @@ locals {
       cni_provider = local.cni_provider,
       user_name = var.user_name,
       user_pass = var.user_pass,	  
-      bucket = var.bucket })
+      token_bucket = var.token_bucket,
+      sa_bucket = var.sa_bucket,
+      SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY	 })
 
   worker_script = templatefile("${path.module}/scripts/k8s-worker-join.sh",
     { version      = var.k8s_version,
-      bucket = var.bucket })
+      token_bucket = var.token_bucket,
+      sa_bucket = var.sa_bucket,
+      SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY  })
 }
 
 resource "google_compute_network" "k8s-vnet-tf" {
@@ -77,8 +81,15 @@ resource "google_compute_firewall" "k8s-vnet-fw-internal" {
   source_tags = ["k8s"]
 }
 
-resource "google_storage_bucket" "demo-bucket" {
-  name = var.bucket
+resource "google_storage_bucket" "k8s-token-bucket" {
+  name = var.token_bucket
+  location = var.region
+  storage_class = "regional"  
+  force_destroy = true  
+}
+
+resource "google_storage_bucket" "k8s-sa-bucket" {
+  name = var.sa_bucket
   location = var.region
   storage_class = "regional"  
   force_destroy = true  
