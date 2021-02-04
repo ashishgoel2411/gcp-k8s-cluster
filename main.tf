@@ -25,6 +25,8 @@ locals {
       user_name = var.user_name,
       user_pass = var.user_pass,	
       token_bucket = var.token_bucket,
+      GREMLIN_TEAM_ID = var.GREMLIN_TEAM_ID,
+      GREMLIN_TEAM_SECRET = var.GREMLIN_TEAM_SECRET,	  
       SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY  })
 }
 
