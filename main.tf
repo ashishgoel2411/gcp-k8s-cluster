@@ -22,6 +22,8 @@ locals {
 
   worker_script = templatefile("${path.module}/scripts/k8s-worker-join.sh",
     { version      = var.k8s_version,
+      user_name = var.user_name,
+      user_pass = var.user_pass,	
       token_bucket = var.token_bucket,
       SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY  })
 }

@@ -75,3 +75,15 @@ variable "user_pass" {
   default     = "demo123"
   description = "Password of demo user"
 }
+
+variable "GREMLIN_TEAM_ID" {
+  type        = string
+  default     = "6a95d297-1bae-5bce-90b0-200632673621"
+  description = "Gremlin team ID"
+}
+
+variable "GREMLIN_TEAM_SECRET" {
+  type        = string
+  default     = "374d2f80-b2e8-4d2b-8d2f-80b2e85d2bfe"
+  description = "Gremlin team Secret"
+}
