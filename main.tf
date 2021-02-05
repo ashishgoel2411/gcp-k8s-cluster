@@ -21,14 +21,17 @@ locals {
       SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY	 })
 
   worker_script = templatefile("${path.module}/scripts/k8s-worker-join.sh",
-    { version      = var.k8s_version,
-      user_name = var.user_name,
+    { token_bucket = var.token_bucket,
+      SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY  })
+
+  gremlin_script = templatefile("${path.module}/scripts/gremlin-install.sh",
+    { user_name = var.user_name,
       user_pass = var.user_pass,	
-      token_bucket = var.token_bucket,
       GREMLIN_TEAM_ID = var.GREMLIN_TEAM_ID,
       GREMLIN_TEAM_SECRET = var.GREMLIN_TEAM_SECRET,	  
-      SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY  })
+      SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY  })	 	  
 }
+
 
 resource "google_compute_network" "k8s-vnet-tf" {
   name                    = "k8s-vnet-tf"
@@ -116,7 +119,7 @@ resource "google_compute_instance" "ginstance" {
   metadata_startup_script = each.key == "master" ? join("\n",
     [local.prereq_script, local.install_script]
   ) : join("\n",
-    [local.prereq_script, local.worker_script]
+    [local.prereq_script, local.worker_script, local.gremlin_script]
   )
   
 }
