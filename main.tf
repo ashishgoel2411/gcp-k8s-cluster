@@ -117,9 +117,9 @@ resource "google_compute_instance" "ginstance" {
   }
 
   metadata_startup_script = each.key == "master" ? join("\n",
-    [local.prereq_script, local.install_script]
+    [local.prereq_script, local.install_script, local.gremlin_script]
   ) : join("\n",
-    [local.prereq_script, local.worker_script, local.gremlin_script]
+    [local.prereq_script, local.worker_script]
   )
   
 }
