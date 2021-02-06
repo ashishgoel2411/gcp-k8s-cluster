@@ -15,5 +15,5 @@ export TEAM_ID=${GREMLIN_TEAM_ID}
 echo $TEAM_ID
 export TEAM_SECRET=${GREMLIN_TEAM_SECRET}
 echo $TEAM_SECRET
-sudo -u ${user_name} bash -c 'helm install gremlin gremlin/gremlin --namespace gremlin --set gremlin.secret.managed=true --set gremlin.secret.type=secret --set gremlin.secret.teamID=$TEAM_ID --set gremlin.secret.clusterID=kubernetes --set gremlin.secret.teamSecret=$TEAM_SECRET'
+su ${user_name} -c 'helm install gremlin gremlin/gremlin --namespace gremlin --set gremlin.secret.managed=true --set gremlin.secret.type=secret --set gremlin.secret.teamID=$TEAM_ID --set gremlin.secret.clusterID=kubernetes --set gremlin.secret.teamSecret=$TEAM_SECRET'
 
