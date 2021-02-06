@@ -1,5 +1,5 @@
 # Install Helm
-sleep 30
+sleep 150
 curl -fsSL -o  $HOME/get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 chmod 700  $HOME/get_helm.sh
 $HOME/get_helm.sh
