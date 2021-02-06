@@ -11,9 +11,9 @@ sudo -H -u ${user_name} bash -c 'helm repo add gremlin https://helm.gremlin.com'
 sudo -H -u ${user_name} bash -c 'kubectl create namespace gremlin'
 
 # Install the Gremlin client on worker node
-export TEAM_ID = ${GREMLIN_TEAM_ID}
+export TEAM_ID=${GREMLIN_TEAM_ID}
 echo $TEAM_ID
-export TEAM_SECRET = ${GREMLIN_TEAM_SECRET}
+export TEAM_SECRET=${GREMLIN_TEAM_SECRET}
 echo $TEAM_SECRET
-sudo -H -u ${user_name} bash -c 'helm install gremlin gremlin/gremlin --namespace gremlin --set gremlin.secret.managed=true --set gremlin.secret.type=secret --set gremlin.secret.teamID=$TEAM_ID --set gremlin.secret.clusterID=kubernetes --set gremlin.secret.teamSecret=$TEAM_SECRET'
+sudo -u ${user_name} bash -c 'helm install gremlin gremlin/gremlin --namespace gremlin --set gremlin.secret.managed=true --set gremlin.secret.type=secret --set gremlin.secret.teamID=$TEAM_ID --set gremlin.secret.clusterID=kubernetes --set gremlin.secret.teamSecret=$TEAM_SECRET'
 
