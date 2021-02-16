@@ -33,3 +33,5 @@ useradd -m -p $(openssl passwd -crypt ${user_pass}) -s /bin/bash -G sudo ${user_
 sudo -H -u ${user_name} bash -c 'mkdir -p $HOME/.kube'
 cp -i /etc/kubernetes/admin.conf $UPATH/.kube/config
 chown ${user_name}: $UPATH/.kube/config
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+service ssh restart

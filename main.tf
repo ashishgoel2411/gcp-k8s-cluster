@@ -58,7 +58,7 @@ resource "google_compute_firewall" "k8s-vnet-fw-external" {
   network = google_compute_network.k8s-vnet-tf.id
   allow {
     protocol = "tcp"
-    ports    = ["22", "80", "443", "30000-40000"]
+    ports    = ["22", "80", "443", "6443", "30000-40000"]
   }
 
   allow {
