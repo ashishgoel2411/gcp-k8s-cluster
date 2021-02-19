@@ -34,6 +34,7 @@ locals {
 
 resource "google_compute_network" "default" {
   name                    = "default"
+  auto_create_subnetworks = false  
 }
 
 resource "google_compute_network" "k8s-vnet-tf" {
