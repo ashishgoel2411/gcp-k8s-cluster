@@ -32,11 +32,6 @@ locals {
       SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY  })	 	  
 }
 
-resource "google_compute_network" "default" {
-  name                    = "default"
-  auto_create_subnetworks = false  
-}
-
 resource "google_compute_network" "k8s-vnet-tf" {
   name                    = "k8s-vnet-tf"
   auto_create_subnetworks = false
@@ -55,6 +50,38 @@ resource "google_compute_subnetwork" "subnet-10-1" {
       ip_cidr_range = var.service_cidr
       range_name    = "serviceips"
   }]
+}
+
+resource "google_compute_network_peering" "peering1" {
+  name         = "peering1"
+  network      = google_compute_network.default.id
+  peer_network = google_compute_network.k8s-vnet-tf.id
+}
+
+resource "google_compute_network_peering" "peering2" {
+  name         = "peering2"
+  network      = google_compute_network.k8s-vnet-tf.id
+  peer_network = google_compute_network.default.id
+}
+
+resource "google_dns_managed_zone" "peering-zone" {
+  name        = "peering-zone"
+  dns_name    = "stoked-genius-302113.internal"
+  description = "Example private DNS peering zone"
+
+  visibility = "private"
+
+  private_visibility_config {
+    networks {
+      network_url = google_compute_network.default.id
+    }
+  }
+
+  peering_config {
+    target_network {
+      network_url = google_compute_network.k8s-vnet-tf.id
+    }
+  }
 }
 
 resource "google_compute_firewall" "k8s-vnet-fw-external" {
@@ -88,38 +115,6 @@ resource "google_compute_firewall" "k8s-vnet-fw-internal" {
     protocol = "ipip"
   }
   source_tags = ["k8s"]
-}
-
-resource "google_compute_network_peering" "peering1" {
-  name         = "peering1"
-  network      = google_compute_network.default.id
-  peer_network = google_compute_network.k8s-vnet-tf.id
-}
-
-resource "google_compute_network_peering" "peering2" {
-  name         = "peering2"
-  network      = google_compute_network.k8s-vnet-tf.id
-  peer_network = google_compute_network.default.id
-}
-
-resource "google_dns_managed_zone" "peering-zone" {
-  name        = "peering-zone"
-  dns_name    = "stoked-genius-302113.internal"
-  description = "Example private DNS peering zone"
-
-  visibility = "private"
-
-  private_visibility_config {
-    networks {
-      network_url = google_compute_network.default.id
-    }
-  }
-
-  peering_config {
-    target_network {
-      network_url = google_compute_network.k8s-vnet-tf.id
-    }
-  }
 }
 
 resource "google_storage_bucket" "k8s-token-bucket" {
