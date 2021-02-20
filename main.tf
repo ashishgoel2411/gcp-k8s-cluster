@@ -35,15 +35,9 @@ locals {
 resource "google_compute_network" "default" {
     auto_create_subnetworks         = true
     delete_default_routes_on_create = false
-    description                     = "Default network for the project"
-    id                              = "projects/stoked-genius-302113/global/networks/default"
-    mtu                             = 0
     name                            = "default"
     project                         = "stoked-genius-302113"
     routing_mode                    = "REGIONAL"
-    self_link                       = "https://www.googleapis.com/compute/v1/projects/stoked-genius-302113/global/networks/default"
-
-    timeouts {}
 }
 
 resource "google_compute_network" "k8s-vnet-tf" {
