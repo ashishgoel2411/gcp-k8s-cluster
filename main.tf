@@ -32,11 +32,6 @@ locals {
       SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY  })	 	  
 }
 
-resource "google_compute_network" "default" {
-  name                    = "default"
-  auto_create_subnetworks = false
-}
-
 resource "google_compute_network" "k8s-vnet-tf" {
   name                    = "k8s-vnet-tf"
   auto_create_subnetworks = false
