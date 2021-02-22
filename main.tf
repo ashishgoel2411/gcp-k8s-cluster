@@ -76,7 +76,7 @@ resource "google_compute_network_peering" "peering2" {
 
 resource "google_dns_managed_zone" "peering-zone" {
   name        = "peering-zone"
-  dns_name    = "stoked-genius-302113.internal"
+  dns_name    = "stoked-genius-302113.internal."
   description = "Example private DNS peering zone"
 
   visibility = "private"
