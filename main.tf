@@ -36,7 +36,7 @@ resource "google_compute_subnetwork" "subnet-10-1" {
   name          = "subnet-tf-10-1"
   ip_cidr_range = "10.1.0.0/16"
   region        = var.region
-  #network       = google_compute_network.default.id
+  network       = google_compute_network.default.id
   secondary_ip_range = [{
     ip_cidr_range = var.pod_cidr
     range_name    = "podips"
@@ -50,7 +50,7 @@ resource "google_compute_subnetwork" "subnet-10-1" {
 
 resource "google_compute_firewall" "k8s-vnet-fw-external" {
   name    = "k8s-vnet-fw-external"
-  #network = google_compute_network.default.id
+  network = google_compute_network.default.id
   allow {
     protocol = "tcp"
     ports    = ["22", "80", "443", "6443", "30000-40000"]
@@ -65,7 +65,7 @@ resource "google_compute_firewall" "k8s-vnet-fw-external" {
 
 resource "google_compute_firewall" "k8s-vnet-fw-internal" {
   name    = "k8s-vnet-fw-internal"
-  #network = google_compute_network.default.id
+  network = google_compute_network.default.id
   allow {
     protocol = "tcp"
   }
