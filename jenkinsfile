@@ -27,7 +27,7 @@ pipeline {
     stage('TF Apply') {
       steps {
         sh 'terraform apply -input=false -auto-approve'
-        sh 'sleep 30'
+        sh 'sleep 300'
 		sh 'terraform state rm google_compute_network.default'
       }
     }
