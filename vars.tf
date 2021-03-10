@@ -84,6 +84,6 @@ variable "GREMLIN_TEAM_ID" {
 
 variable "GREMLIN_TEAM_SECRET" {
   type        = string
-  default     = "374d2f80-b2e8-4d2b-8d2f-80b2e85d2bfe"
+  default     = "33759aed-b315-4076-b59a-edb31540768e"
   description = "Gremlin team Secret"
 }
