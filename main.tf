@@ -38,7 +38,7 @@ resource "google_compute_network" "default" {
   description                     = "Default network for the project"
   mtu                             = 0
   name                            = "default"
-  project                         = "stoked-genius-302113"
+  project                         = "chaos-engineering-308202"
   routing_mode                    = "REGIONAL"
 }
 
@@ -76,7 +76,7 @@ resource "google_compute_network_peering" "peering2" {
 
 resource "google_dns_managed_zone" "peering-zone" {
   name        = "peering-zone"
-  dns_name    = "stoked-genius-302113.internal."
+  dns_name    = "chaos-engineering-308202.internal."
   description = "Example private DNS peering zone"
 
   visibility = "private"
