@@ -53,7 +53,7 @@ variable "num_of_worker_nodes" {
 
 variable "token_bucket" {
   type        = string
-  default     = "k8s-token-bucket"
+  default     = "k8s-master-token-bucket"
   description = "Bucket to store token to join master"
 }
 

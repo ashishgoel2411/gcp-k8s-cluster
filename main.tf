@@ -127,7 +127,7 @@ resource "google_compute_firewall" "k8s-vnet-fw-internal" {
   source_tags = ["k8s"]
 }
 
-resource "google_storage_bucket" "k8s-token-bucket" {
+resource "google_storage_bucket" "k8s-master-token-bucket" {
   name = var.token_bucket
   location = var.region
   storage_class = "regional"  
