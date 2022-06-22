@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "chaos-engineering-308202-tfstate"
+    bucket = "chaos-engineering-354117-tfstate"
     credentials = "./creds/demoaccount.json"
   }
 }
