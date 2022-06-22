@@ -16,7 +16,7 @@ pipeline {
 	stage('TF Init') {
       steps {
         sh 'terraform init'
-        sh 'terraform import google_compute_network.default projects/chaos-engineering-308202/global/networks/default'
+        sh 'terraform import google_compute_network.default projects/chaos-engineering-354117/global/networks/default'
       }      
     }
 	stage('TF Plan') {
