@@ -38,7 +38,7 @@ resource "google_compute_network" "default" {
   description                     = "Default network for the project"
   mtu                             = 0
   name                            = "default"
-  project                         = "chaos-engineering-308202"
+  project                         = "chaos-engineering-354117"
   routing_mode                    = "REGIONAL"
 }
 
