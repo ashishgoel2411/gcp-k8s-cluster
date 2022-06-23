@@ -32,14 +32,8 @@ locals {
       SVC_ACCOUNT_KEY = var.SVC_ACCOUNT_KEY  })	 	  
 }
 
-resource "google_compute_network" "default" {
-  auto_create_subnetworks         = true
-  delete_default_routes_on_create = false
-  description                     = "Default network for the project"
-  mtu                             = 0
-  name                            = "default"
-  project                         = "chaos-engineering-354117"
-  routing_mode                    = "REGIONAL"
+data "google_compute_network" "selected" {
+  id = "projects/chaos-engineering-354117/global/networks/default"
 }
 
 resource "google_compute_network" "k8s-vnet-tf" {
@@ -64,14 +58,14 @@ resource "google_compute_subnetwork" "subnet-10-1" {
 
 resource "google_compute_network_peering" "peering1" {
   name         = "peering1"
-  network      = google_compute_network.default.id
+  network      = data.google_compute_network.selected.id
   peer_network = google_compute_network.k8s-vnet-tf.id
 }
 
 resource "google_compute_network_peering" "peering2" {
   name         = "peering2"
   network      = google_compute_network.k8s-vnet-tf.id
-  peer_network = google_compute_network.default.id
+  peer_network = data.google_compute_network.selected.id
 }
 
 resource "google_dns_managed_zone" "peering-zone" {
@@ -83,7 +77,7 @@ resource "google_dns_managed_zone" "peering-zone" {
 
   private_visibility_config {
     networks {
-      network_url = google_compute_network.default.id
+      network_url = data.google_compute_network.selected.id
     }
   }
 
