@@ -34,7 +34,6 @@ locals {
 
 data "google_compute_network" "selected" {
   name = "default"
-  id = "projects/chaos-engineering-354117/global/networks/default"
 }
 
 resource "google_compute_network" "k8s-vnet-tf" {
